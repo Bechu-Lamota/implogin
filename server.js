@@ -4,12 +4,14 @@ const productRouter = require('./routers/productsRouter')
 const viewsRouter = require('./routers/viewsRouter')
 const cartRouter = require('./routers/cartRouter')
 const productModel = require('./dao/models/product.model') //Este productModel corresponde??
+const userRouter = require('./routers/userRouter')
 
 app.use(chatRouter)
 app.use('/api/products' ,productRouter)
 app.use(viewsRouter)
 app.use('/api/cart', cartRouter)
 app.use(productModel)
+app.use('/api/users', userRouter)
 
 app.get('/healtcheck', (req, res) => {
 	return res.json ({

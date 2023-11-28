@@ -2,6 +2,10 @@ const express = require('express')
 const handlebars = require('express-handlebars')
 const { Server } = require('socket.io')
 const mongoose = require('mongoose')
+//ENTREGA
+const session = require('express-session')
+const MongoConnect = require('connect-mongo')
+const cookiParser = require('cookie-parser')
 
 const app = express()
 
@@ -18,6 +22,8 @@ const MONGODB_CONNECT = 'mongodb+srv://lamotaas:bWSantGjgrt5fXQ5@cluster0.z23acm
 mongoose.connect(MONGODB_CONNECT)
     .then(() => console.log('BD conectada al servidor 8080'))
     .catch((e) => console.log(e))
+
+
 
 const PORT = 8080
 const httpServer = app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`))
@@ -54,6 +60,18 @@ io.on('connection', socket => {
 		io.emit('message', JSON.stringify(newMessage))
 	})
 })
+
+//AGREGO
+app.use(cookiParser('secrekey'))
+app.use(session({
+	store: MongoStore.create({
+		mongoUrl: MONGODB_CONNECT,
+		ttl: 15
+	}),
+	secret: 'secretSession',
+	resave: true,
+	saveUniitialized: true
+}))
 
 
 module.exports = {

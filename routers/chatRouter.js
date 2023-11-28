@@ -5,11 +5,11 @@ const messageModel = require('../dao/models/messages.model')
 const chatRouter = new Router()
 const usersnames = []
 
-chatRouter.get('/login', (req, res) => {
-	return res.render('login')
+chatRouter.get('/chatLogin', (req, res) => {
+	return res.render('chatLogin')
 })
 
-chatRouter.post('/login', (req, res) => {
+chatRouter.post('/chatLogin', (req, res) => {
 	const user = req.body
 	const username = user.name
 
